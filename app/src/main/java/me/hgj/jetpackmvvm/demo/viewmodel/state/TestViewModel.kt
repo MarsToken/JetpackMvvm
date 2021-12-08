@@ -1,17 +1,21 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.state
 
+import android.content.Context
+import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.demo.app.room.repository.TestRepository
 import me.hgj.jetpackmvvm.demo.app.util.either.*
+import java.io.File
 
 /**
  * Created by WangMaoBo.
  * Date: 2021/12/2
  */
-class TestViewModel : BaseViewModel() {
+internal class TestViewModel : BaseViewModel() {
     private val _loadingLiveData = MutableLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
     private val _tokenLiveData = MutableLiveData<String>()
@@ -93,4 +97,17 @@ class TestViewModel : BaseViewModel() {
     }
 
     open class CommonError
+
+    fun getAllFiles(context:Context) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                TestRepository(context).updateFile(Environment.getExternalStorageDirectory().absolutePath)
+                val result = TestRepository(context).getAllFile()
+                result.forEach{
+                    println("===$it")
+                }
+            }
+        }
+
+    }
 }

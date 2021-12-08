@@ -132,4 +132,15 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.louiscad.splitties:splitties-collections:2.1.1'
+
+    def room_version = "2.3.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")
+    // To use Kotlin Symbolic Processing (KSP)
+    // 这里的 ksp 是取代 kapt 的一种方式，这里暂时不用
+    // ksp("androidx.room:room-compiler:$room_version")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
 }

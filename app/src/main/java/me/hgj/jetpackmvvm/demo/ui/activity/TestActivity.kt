@@ -12,11 +12,12 @@ import me.hgj.jetpackmvvm.demo.viewmodel.state.TestViewModel
 import me.hgj.jetpackmvvm.ext.util.logd
 
 /**
+ * flow,livedata,协程
  * @author : hgj
  * @date   : 2020/8/26
  */
 
-class TestActivity : BaseActivity<TestViewModel, ActivityTestBinding>() {
+internal class TestActivity : BaseActivity<TestViewModel, ActivityTestBinding>() {
 
     val viewModel: RequestLoginRegisterViewModel by viewModels()
 
@@ -47,6 +48,7 @@ class TestActivity : BaseActivity<TestViewModel, ActivityTestBinding>() {
             println("token show $it")
         })
 
+        mViewModel.getAllFiles(this)
     }
 
     override fun createObserver() {
